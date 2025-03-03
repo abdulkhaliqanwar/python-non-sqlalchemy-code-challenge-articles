@@ -18,15 +18,11 @@ class Article:
     def title(self, new_title):
         """Title setter with validation to ensure it meets length constraints."""
         if hasattr(self, "_title"):  # Prevents modifying the title after setting it
-             AttributeError("Title cannot be changed")
+             raise Exception("Title cannot be changed")
+        elif isinstance(new_title, str)and 5 <= len(new_title) <= 50:
+                self._title = new_title
         else:
-            if isinstance(new_title, str):
-                if 5 <= len(new_title) <= 50:
-                    self._title = new_title
-                else:
-                    ValueError("Title must be between 5 and 50 characters")
-            else:
-                TypeError("Title must be a string")
+          raise Exception("Title must be a string of between 5 and 50 characters")
 
     @property
     def author(self):
@@ -39,7 +35,7 @@ class Article:
         if isinstance(new_author, Author):
             self._author = new_author
         else:
-             TypeError("Author must be an instance of Author")
+            raise Exception("Author must be an instance of Author")
 
     @property
     def magazine(self):
@@ -52,7 +48,7 @@ class Article:
         if isinstance(new_magazine, Magazine):
             self._magazine = new_magazine
         else:
-             TypeError("Magazine must be an instance of Magazine")
+             raise Exception("Magazine must be an instance of Magazine")
 
 
 class Author:
@@ -71,15 +67,12 @@ class Author:
     def name(self, new_name):
         """Setter for name with validation to ensure it's a string."""
         if hasattr(self, "_name"):  # Prevents modifying the name after setting it
-             AttributeError("Name cannot be changed")
+            raise Exception("Name cannot be changed")
+        elif isinstance(new_name, str) and len(new_name) > 0:
+            self._name = new_name
         else:
-            if isinstance(new_name, str):
-                if len(new_name) > 0:
-                    self._name = new_name
-                else:
-                     ValueError("Name must be longer than 0 characters")
-            else:
-                 TypeError("Name must be a string")
+            raise Exception("Name must be a string longer than 0 characters")
+            
 
     def articles(self):
         """Returns a list of articles written by this author."""
@@ -114,13 +107,11 @@ class Magazine:
     @name.setter
     def name(self, new_name):
         """Setter for name with validation on length constraints."""
-        if isinstance(new_name, str):
-            if 2 <= len(new_name) <= 16:
-                self._name = new_name
-            else:
-             ValueError("Name must be between 2 and 16 characters")
+        if isinstance(new_name, str) and 2 <= len(new_name) <= 16:
+            self._name = new_name
         else:
-             TypeError("Name must be a string")
+             raise Exception("Name must be a string of between  2 and 16 characters")
+        
 
     @property
     def category(self):
@@ -130,13 +121,11 @@ class Magazine:
     @category.setter
     def category(self, new_category):
         """Setter for category ensuring it's not empty."""
-        if isinstance(new_category, str):
-            if len(new_category) > 0:
-                self._category = new_category
-            else:
-                 ValueError("Category must be longer than 0 characters")
+        if isinstance(new_category, str) and len(new_category) > 0:
+            self._category = new_category
         else:
-         TypeError("Category must be a string")
+             raise Exception("Category must be a string longer than 0 characters")
+        
 
     def articles(self):
         """Returns a list of articles published in this magazine."""
